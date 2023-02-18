@@ -1,0 +1,13 @@
+node_modules
+build
+coverage
+.sewing-kit
+*.svg
+.next
+sessions.json
+theme-extension/assets/bundle.js
+pnpm-lock.yaml
+yarn.lock
+package-lock.json
+dist
+.github
