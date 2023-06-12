@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.1.0",
   "scripts": {
-    "build": "react-app-rewired build",
+    "build": "BUILD_PATH='./docs' react-app-rewired build",
     "eject": "react-scripts eject",
     "start": "HTTPS=true react-app-rewired start",
     "test": "react-app-rewired test",

@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/static/css/main.42828856.css",
+    "main.js": "/static/js/main.e63a9d38.js",
+    "static/js/874.b0227671.chunk.js": "/static/js/874.b0227671.chunk.js",
+    "static/media/zappar-cv.wasm": "/static/media/zappar-cv.ad56c9a01f0d026178a3.wasm",
+    "static/media/face_mesh_full_head_simplified_model.zbin": "/static/media/face_mesh_full_head_simplified_model.f7b62a3a53b5c9b3222b.zbin",
+    "static/media/face_mesh_face_model.zbin": "/static/media/face_mesh_face_model.b4f46e148a3b3b5aef90.zbin",
+    "static/media/face_tracking_model.zbin": "/static/media/face_tracking_model.482727c0e7dd40d73f5a.zbin",
+    "index.html": "/index.html",
+    "static/media/javascript,__webpack_public_path__ = __webpack_base_uri__ = htmlWebpackPluginPublicPath;": "/static/media/.1feff74faaf0efc6a044",
+    "main.42828856.css.map": "/static/css/main.42828856.css.map",
+    "main.e63a9d38.js.map": "/static/js/main.e63a9d38.js.map",
+    "874.b0227671.chunk.js.map": "/static/js/874.b0227671.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.42828856.css",
+    "static/js/main.e63a9d38.js"
+  ]
+}
