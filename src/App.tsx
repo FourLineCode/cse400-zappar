@@ -1,6 +1,7 @@
 import { useLoader } from '@react-three/fiber';
 import { ImageTracker, ZapparCamera, ZapparCanvas } from '@zappar/zappar-react-three-fiber';
 import { useEffect, useState } from 'react';
+import { twJoin } from 'tailwind-merge';
 import { MTLLoader } from 'three/examples/jsm/loaders/MTLLoader';
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader';
 
@@ -13,6 +14,7 @@ export function App() {
   });
 
   const [visible, setVisible] = useState(false);
+  const [mirrored, setMirrored] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -26,7 +28,14 @@ export function App() {
 
   return (
     <main className='relative w-screen h-screen'>
-      <div className='absolute top-0 left-0 z-50'>
+      <div className='absolute top-0 left-0 z-50 p-1 bg-white'>
+        <input
+          id='mirrored'
+          type='checkbox'
+          checked={mirrored}
+          onChange={(e) => setMirrored(e.target.checked)}
+        />
+        <label htmlFor='mirrored'>Mirrored?</label>
         <input
           type='range'
           name='x'
@@ -37,7 +46,7 @@ export function App() {
           value={rotation[0]}
           onChange={(e) => setRotation((prev) => [+e.target.value, prev[1], prev[2]])}
         />
-        <label htmlFor='x'>{rotation[0]}</label>
+        <label htmlFor='x'>X: {rotation[0]}</label>
         <input
           type='range'
           name='y'
@@ -48,7 +57,7 @@ export function App() {
           value={rotation[1]}
           onChange={(e) => setRotation((prev) => [prev[0], +e.target.value, prev[2]])}
         />
-        <label htmlFor='y'>{rotation[1]}</label>
+        <label htmlFor='y'>Y: {rotation[1]}</label>
         <input
           type='range'
           name='z'
@@ -59,9 +68,9 @@ export function App() {
           value={rotation[2]}
           onChange={(e) => setRotation((prev) => [prev[0], prev[1], +e.target.value])}
         />
-        <label htmlFor='z'>{rotation[2]}</label>
+        <label htmlFor='z'>Z: {rotation[2]}</label>
       </div>
-      <div className='w-full h-full'>
+      <div className={twJoin('w-full h-full', mirrored && '-scale-x-100')}>
         <ZapparCanvas>
           <ZapparCamera />
           <directionalLight position={[0, 10, 10]} />
