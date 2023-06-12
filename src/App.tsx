@@ -61,7 +61,7 @@ export function App() {
         />
         <label htmlFor='z'>{rotation[2]}</label>
       </div>
-      <div className='w-full h-full -scale-x-100'>
+      <div className='w-full h-full'>
         <ZapparCanvas>
           <ZapparCamera />
           <directionalLight position={[0, 10, 10]} />
