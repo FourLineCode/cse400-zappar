@@ -1,17 +1,21 @@
-import { BrowserRouter, Outlet, Route, Routes } from 'react-router-dom';
+import { ChakraProvider } from '@chakra-ui/react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Home } from './components/pages/Home';
-import { OhmsLawLesson, OhmsLawVisual } from './components/pages/OhmsLaw';
+import { OhmsLaw } from './components/pages/OhmsLaw';
+import { OhmsLawSim } from './components/pages/OhmsLawSim';
+import Tracker from './components/pages/Tracker';
 
 export function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='ohms-law' element={<Outlet />}>
-          <Route index element={<OhmsLawLesson />} />
-          <Route path='3d' element={<OhmsLawVisual />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <ChakraProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/tracker' element={<Tracker />} />
+          <Route path='/ohms-law' element={<OhmsLaw />} />
+          <Route path='/simulation/ohms-law' element={<OhmsLawSim />} />
+        </Routes>
+      </BrowserRouter>
+    </ChakraProvider>
   );
 }

@@ -12,17 +12,14 @@ export function Home() {
     <Layout>
       <h1 className='mb-3 text-2xl font-bold text-center'>Browse Topics</h1>
       <div className='space-y-4'>
-        {[0, 1, 2, 3].map((id) => (
-          <Topic
-            id={id}
-            key={id}
-            active={active}
-            name={"Ohm's Law"}
-            path='/ohms-law'
-            description='Ohm’s law states the relationship between electric current and potential difference'
-            onClick={(id) => setActive(active === id ? null : id)}
-          />
-        ))}
+        <Topic
+          id={1}
+          active={active}
+          name={"Ohm's Law"}
+          path='/ohms-law'
+          description='Ohm’s law states the relationship between electric current and potential difference'
+          onClick={(id) => setActive(active === id ? null : id)}
+        />
       </div>
     </Layout>
   );
