@@ -79,7 +79,7 @@ function Model({ url, showControls }: { url: string; showControls: boolean }) {
           >
             {['current1', 'current2'].includes(prop) ? (
               <>
-                <ValueLabel label={`${values[prop].toFixed(2)} A`} />
+                <ValueLabel label={isNaN(values[prop]) ? '♾️' : `${values[prop].toFixed(2)} A`} />
                 <img
                   src='/images/arrow.png'
                   alt='arrow'
