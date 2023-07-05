@@ -12,7 +12,7 @@ import { ImageTracker, Loader, ZapparCamera, ZapparCanvas } from '@zappar/zappar
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-type Lesson = 'ohms-law' | null;
+type Lesson = 'ohms-law' | 'mesh' | null;
 interface LessonContent {
   path: string;
   title: string;
@@ -24,6 +24,12 @@ const lessonContent: Record<string, LessonContent> = {
     path: '/simulation/ohms-law',
     title: "Ohm's Law circuit detected",
     description: "We have detected Ohm's law circuit. Do you want to start the simulation?",
+  },
+  mesh: {
+    path: '/simulation/mesh',
+    title: 'Mesh currrent analysis circuit detected',
+    description:
+      'We have detected Mesh current analysis circuit. Do you want to start the simulation?',
   },
 };
 
@@ -56,8 +62,8 @@ export default function Tracker() {
       <ZapparCanvas>
         <ZapparCamera />
         <directionalLight position={[0, 5, 10]} />
-        <ImageTracker targetImage='/images/ohms.zpt' onVisible={() => setVisible('ohms-law')} />
-        <ImageTracker targetImage='/images/circuit.zpt' onVisible={() => setVisible('ohms-law')} />
+        <ImageTracker targetImage='/desc/ohms.zpt' onVisible={() => setVisible('ohms-law')} />
+        <ImageTracker targetImage='/desc/mesh.zpt' onVisible={() => setVisible('mesh')} />
         <Loader />
       </ZapparCanvas>
     </main>

@@ -1,8 +1,10 @@
-import { Html, OrbitControls, Sky, useGLTF } from '@react-three/drei';
+import { Html, OrbitControls, useGLTF } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
 import { useEffect, useState } from 'react';
 import { AiOutlineControl } from 'react-icons/ai';
 import { cn } from '../../utils/cn';
+import { ButtonInput } from '../ui/ButtonInput';
+import { ValueLabel } from '../ui/ValueLabel';
 
 export function OhmsLawSim() {
   const [showControls, setShowControls] = useState(false);
@@ -23,7 +25,7 @@ export function OhmsLawSim() {
       <Canvas>
         <ambientLight />
         <OrbitControls />
-        <Sky distance={450000} sunPosition={[0, 1, 0]} inclination={0} azimuth={0.25} />
+        <color attach='background' args={['gray']} />
         <pointLight position={[10, 10, 10]} />
         <Model url='/models/ohms.glb' showControls={showControls} />
       </Canvas>
@@ -64,27 +66,13 @@ function Model({ url, showControls }: { url: string; showControls: boolean }) {
             position={[child.position.x, child.position.y, child.position.z]}
           >
             {prop === 'current' ? (
-              <div className='w-32 flex text-sm items-center justify-center transform scale-[400%] px-4 py-2 font-bold bg-white border-2 border-gray-900 rounded-full'>
-                {values.resistance === 0 ? 'Infinity' : `${values[prop].toFixed(2)} A`}
-              </div>
+              <ValueLabel label={values.resistance === 0 ? '♾️' : `${values[prop].toFixed(2)} A`} />
             ) : (
-              <div className='flex text-xs items-center justify-center overflow-hidden transform scale-[400%] font-bold bg-white border-2 border-gray-100 rounded-full'>
-                <button
-                  className='flex-1 h-full px-1 text-xl text-white bg-gray-900'
-                  onClick={() => setters[prop](values[prop] - 1)}
-                >
-                  -
-                </button>
-                <span className='flex-1 w-20 p-1'>
-                  {values[prop] + (prop === 'voltage' ? ' V' : ' Ω')}
-                </span>
-                <button
-                  className='flex-1 h-full px-1 text-xl text-white bg-gray-900'
-                  onClick={() => setters[prop](values[prop] + 1)}
-                >
-                  +
-                </button>
-              </div>
+              <ButtonInput
+                label={values[prop] + (prop === 'voltage' ? ' V' : ' Ω')}
+                onIncrement={() => setters[prop](values[prop] + 1)}
+                onDecrement={() => setters[prop](values[prop] - 1)}
+              />
             )}
           </Html>
         );

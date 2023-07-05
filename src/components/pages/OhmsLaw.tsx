@@ -160,8 +160,8 @@ function Step4() {
     <>
       <h2 className='text-xl font-bold'>Visualize</h2>
       <p>
-        You can visualize a physical representation of Ohm's Law in Augmented Reality by scanning an
-        image of the circuit. Start by clicking the button below.
+        You can visualize a physical representation of Ohm's Law by scanning an image of the
+        circuit. Start by clicking the button below.
       </p>
       <button
         onClick={(e) => {

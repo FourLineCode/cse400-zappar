@@ -1,8 +1,10 @@
-import { OrbitControls, useGLTF } from '@react-three/drei';
+import { Html, OrbitControls, useGLTF } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { AiOutlineControl } from 'react-icons/ai';
 import { cn } from '../../utils/cn';
+import { ButtonInput } from '../ui/ButtonInput';
+import { ValueLabel } from '../ui/ValueLabel';
 
 export function MeshSim() {
   const [showControls, setShowControls] = useState(false);
@@ -23,7 +25,6 @@ export function MeshSim() {
       <Canvas>
         <ambientLight />
         <OrbitControls />
-        {/* <Sky /> */}
         <color attach='background' args={['gray']} />
         <pointLight position={[10, 10, 10]} />
         <Model url='/models/mesh.glb' showControls={showControls} />
@@ -35,67 +36,76 @@ export function MeshSim() {
 function Model({ url, showControls }: { url: string; showControls: boolean }) {
   const { scene } = useGLTF(url);
 
-  // // TODO: make the values global for a model
-  // const [voltage, setVoltage] = useState(0);
-  // const [resistance, setResistance] = useState(0);
-  // const [current, setCurrent] = useState(0);
-  // const values = { voltage, resistance, current };
+  const [resistance1, setResistance1] = useState(0);
+  const [resistance2, setResistance2] = useState(0);
+  const [resistance3, setResistance3] = useState(0);
+  const [voltage1, setVoltage1] = useState(0);
+  const [voltage2, setVoltage2] = useState(0);
+  const [current1, setCurrent1] = useState(0);
+  const [current2, setCurrent2] = useState(0);
+  const values = { resistance1, resistance2, resistance3, voltage1, voltage2, current1, current2 };
 
-  // const setters = {
-  //   voltage: setVoltage,
-  //   resistance: setResistance,
-  //   current: setCurrent,
-  // };
+  const setters = {
+    resistance1: setResistance1,
+    resistance2: setResistance2,
+    resistance3: setResistance3,
+    voltage1: setVoltage1,
+    voltage2: setVoltage2,
+    current1: setCurrent1,
+    current2: setCurrent2,
+  };
 
-  // useEffect(() => {
-  //   setCurrent(voltage / resistance);
-  // }, [voltage, resistance]);
+  useEffect(() => {
+    const i1 =
+      (resistance2 * voltage1 + resistance3 * voltage1 - resistance3 * voltage2) /
+      (resistance1 * resistance2 + resistance2 * resistance3 + resistance1 * resistance3);
+    setCurrent1(i1);
+    const i2 = (resistance1 * i1 + resistance3 * i1 - voltage1) / resistance3;
+    setCurrent2(i2);
+  }, [voltage1, voltage2, resistance1, resistance2, resistance3]);
 
-  // const keys = Object.keys(values);
-  // const annotations: React.ReactNode[] = [];
-  // if (showControls) {
-  //   scene.traverse((child) => {
-  //     if (keys.includes(child.name)) {
-  //       const prop = child.name as keyof typeof values;
+  const keys = Object.keys(values);
+  const annotations: React.ReactNode[] = [];
+  if (showControls) {
+    scene.traverse((child) => {
+      if (keys.includes(child.name)) {
+        const prop = child.name as keyof typeof values;
 
-  //       annotations.push(
-  //         <Html
-  //           key={child.uuid}
-  //           distanceFactor={1}
-  //           position={[child.position.x, child.position.y, child.position.z]}
-  //         >
-  //           {prop === 'current' ? (
-  //             <div className='w-32 flex text-sm items-center justify-center transform scale-[400%] px-4 py-2 font-bold bg-white border-2 border-gray-900 rounded-full'>
-  //               {values.resistance === 0 ? 'Infinity' : `${values[prop].toFixed(2)} A`}
-  //             </div>
-  //           ) : (
-  //             <div className='flex text-xs items-center justify-center overflow-hidden transform scale-[400%] font-bold bg-white border-2 border-gray-100 rounded-full'>
-  //               <button
-  //                 className='flex-1 h-full px-1 text-xl text-white bg-gray-900'
-  //                 onClick={() => setters[prop](values[prop] - 1)}
-  //               >
-  //                 -
-  //               </button>
-  //               <span className='flex-1 w-20 p-1'>
-  //                 {values[prop] + (prop === 'voltage' ? ' V' : ' Ω')}
-  //               </span>
-  //               <button
-  //                 className='flex-1 h-full px-1 text-xl text-white bg-gray-900'
-  //                 onClick={() => setters[prop](values[prop] + 1)}
-  //               >
-  //                 +
-  //               </button>
-  //             </div>
-  //           )}
-  //         </Html>
-  //       );
-  //     }
-  //   });
-  // }
+        annotations.push(
+          <Html
+            key={child.uuid}
+            distanceFactor={1}
+            position={[child.position.x, child.position.y, child.position.z]}
+          >
+            {['current1', 'current2'].includes(prop) ? (
+              <>
+                <ValueLabel label={`${values[prop].toFixed(2)} A`} />
+                <img
+                  src='/images/arrow.png'
+                  alt='arrow'
+                  className={cn('transform -z-50 mt-24 scale-[200%]')}
+                />
+              </>
+            ) : (
+              ['resistance1', 'resistance2', 'resistance3', 'voltage1', 'voltage2'].includes(
+                prop
+              ) && (
+                <ButtonInput
+                  label={values[prop] + (prop.startsWith('voltage') ? ' V' : ' Ω')}
+                  onIncrement={() => setters[prop](values[prop] + 1)}
+                  onDecrement={() => setters[prop](values[prop] - 1)}
+                />
+              )
+            )}
+          </Html>
+        );
+      }
+    });
+  }
 
   return (
     <primitive object={scene} scale={[0.5, 0.5, 0.5]} position={[0, 0, 0]} rotation={[0, 0, 0]}>
-      {/* {showControls && annotations} */}
+      {showControls && annotations}
     </primitive>
   );
 }

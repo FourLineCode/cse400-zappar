@@ -20,6 +20,14 @@ export function Home() {
           description='Ohm’s law states the relationship between electric current and potential difference'
           onClick={(id) => setActive(active === id ? null : id)}
         />
+        <Topic
+          id={2}
+          active={active}
+          name={'Mesh current analysis'}
+          path='/mesh'
+          description='Mesh current analysis is a method by which the current flowing through a planar circuit is calculated'
+          onClick={(id) => setActive(active === id ? null : id)}
+        />
       </div>
     </Layout>
   );
