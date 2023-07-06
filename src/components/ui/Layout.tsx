@@ -13,7 +13,7 @@ function Navbar() {
   return (
     <nav className='sticky flex items-center w-full p-4 text-gray-200 bg-gray-800 shadow-lg'>
       <a href='/' className='text-3xl font-bold'>
-        {'<App name>'}
+        {'AR Circuits'}
       </a>
     </nav>
   );
