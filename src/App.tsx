@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Home } from './components/pages/Home';
 import { Mesh } from './components/pages/Mesh';
 import { MeshSim } from './components/pages/MeshSim';
+import { Node } from './components/pages/Node';
 import { OhmsLaw } from './components/pages/OhmsLaw';
 import { OhmsLawSim } from './components/pages/OhmsLawSim';
 import Tracker from './components/pages/Tracker';
@@ -16,6 +17,7 @@ export function App() {
           <Route path='/tracker' element={<Tracker />} />
           <Route path='/ohms-law' element={<OhmsLaw />} />
           <Route path='/mesh' element={<Mesh />} />
+          <Route path='/node' element={<Node />} />
           <Route path='/simulation/ohms-law' element={<OhmsLawSim />} />
           <Route path='/simulation/mesh' element={<MeshSim />} />
         </Routes>

@@ -28,6 +28,14 @@ export function Home() {
           description='Mesh current analysis is a method by which the current flowing through a planar circuit is calculated'
           onClick={(id) => setActive(active === id ? null : id)}
         />
+        <Topic
+          id={3}
+          active={active}
+          name={'Nodal analysis'}
+          path='/node'
+          description='The mathematical method for calculating the voltage distribution between the circuit nodes'
+          onClick={(id) => setActive(active === id ? null : id)}
+        />
       </div>
     </Layout>
   );
